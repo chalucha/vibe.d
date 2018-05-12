@@ -353,7 +353,7 @@ private template serializeValueImpl(Serializer, alias Policy) {
 	static if (isSafeSerializer!Serializer) {
 		void serializeValue(T, ATTRIBUTES...)(ref Serializer ser, T value) @safe { serializeValueDeduced!(T, ATTRIBUTES)(ser, value); }
 	} else {
-		void serializeValue(T, ATTRIBUTES...)(ref Serializer ser, T value) { serializeValueDeduced!(T, ATTRIBUTES)(ser, value); }
+		void serializeValue(T, ATTRIBUTES...)(ref Serializer ser, T value) @safe { serializeValueDeduced!(T, ATTRIBUTES)(ser, value); }
 	}
 
 	private void serializeValueDeduced(T, ATTRIBUTES...)(ref Serializer ser, T value)
@@ -575,7 +575,7 @@ private template deserializeValueImpl(Serializer, alias Policy) {
 	static if (isSafeSerializer!Serializer) {
 		T deserializeValue(T, ATTRIBUTES...)(ref Serializer ser) @safe { return deserializeValueDeduced!(T, ATTRIBUTES)(ser); }
 	} else {
-		T deserializeValue(T, ATTRIBUTES...)(ref Serializer ser) { return deserializeValueDeduced!(T, ATTRIBUTES)(ser); }
+		T deserializeValue(T, ATTRIBUTES...)(ref Serializer ser) @safe { return deserializeValueDeduced!(T, ATTRIBUTES)(ser); }
 	}
 
 	T deserializeValueDeduced(T, ATTRIBUTES...)(ref Serializer ser) if(!isMutable!T)
